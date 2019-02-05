@@ -1,0 +1,66 @@
+p {
+	margin: 0;
+}
+
+h2 {
+	margin: 0;
+}
+
+.attribute-text {
+	font-size:   18px;
+	font-weight: bold;
+}
+
+.skill-text {
+	font-size : 16px;
+}
+
+.specialization-text {
+	font-size:14px;
+}
+
+.form-wrapper {
+	border:  1px solid black;
+	padding: 10px;
+	margin:  10px 5px;
+}
+
+.flex-wrapper {
+	display: flex;
+}
+
+.left-flex {
+	padding-right: 4px;
+}
+
+.right-flex, .middle-flex, .left-flex {
+	flex: 1;
+}
+
+.large-flex {
+	flex: 2;
+}
+
+.table-row {
+	display : flex;
+}
+
+.skills-wrapper, .specializations-wrapper  {
+}
+
+.editable-side {
+	position: relative;
+	width: 50%;
+}
+
+.preview-side {
+	width: 50%;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+
+.skills-wrapper .left-flex {
+	padding-left: 20px;
+}

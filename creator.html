@@ -1,0 +1,240 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="creator.css">
+		<script type="text/javascript" src="lodash.js"></script>
+		<script type="text/javascript" src="skills.js"></script>
+		<script type="text/javascript" src="perks.js"></script>
+		<script type="text/javascript" src="powerks.js"></script>
+	</head>
+	<body>
+		<h1>Sixcelsior Character Creator</h1>
+		
+		<div class="editable-side">
+			<div class="form-wrapper character-details detail-form">
+				<h2>Character Details</h2>
+				<form id="main-character-details">
+					<div class="flex-wrapper">
+						<div class="left-flex">
+							<p><label for="character-name">Name</label></p>
+							<p><label for="power-points">Power Points</label></p>
+							<p><label for="attribute-selloff">Sold Attribute Pips</label></p>
+						</div>
+						<div class="right-flex">
+							<p><input type="text" name="character-name" data-bind="value: characterName"/></p>
+							<p><input type="number" name="power-points" data-bind="value: powerPoints"/></p>
+							<p><input type="number" name="attribute-selloff" data-bind="value: attributeSelloff"/></p>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<!-- Editable Sheet -->
+
+			<!-- Stats -->
+			<div class="form-wrapper">
+				<h2>Stats</h2>
+
+				<div class="flex-wrapper">
+					<div class="left-flex">
+						<p class="attribute-text">Name</p>
+					</div>
+					<div class="middle-flex large-flex">
+						<p class="attribute-text">Power Points / Pips Invested</p>
+					</div>
+					<div class="middle-flex">
+						<p class="attribute-text">Total D-Code</p>
+					</div>
+					<div class="right-flex">
+						<p class="attribute-text">New Sub-Item</p>
+					</div>
+				</div>
+
+				<form class="character-stats-form" data-bind="foreach : baseAttributes">
+					<div class="flex-wrapper">
+						<div class="left-flex">
+							<p class="attribute-text" data-bind="text: attributeName"></p>
+						</div>
+						<div class="middle-flex large-flex">
+							<input class="attribute-input" type="number" step="2" data-bind="value: points"/>
+							<button class="attribute-input" data-bind="click: increasePoints"/>+</button>
+							<button class="attribute-input" data-bind="click: decreasePoints"/>-</button>
+						</div>
+						<div class="middle-flex">
+							<p class="attribute-text" data-bind="text: dCodeText"></p>
+
+						</div>
+						<div class="right-flex">
+							<button class="attribute-text" data-bind="click : addNewSkill">+Skill</button>
+						</div>
+					</div>
+
+					<div class="skills-wrapper" data-bind="foreach : skills">
+						<div class="flex-wrapper">
+							<div class="left-flex">
+								<select data-bind="options: $parent.skillList, value: skillName"></select>
+							</div>
+							<div class="middle-flex large-flex">
+								<input class="skill-input" type="number" data-bind="value: points"/>
+								<button class="skill-input" data-bind="click: increasePoints"/>+</button>
+								<button class="skill-input" data-bind="click: decreasePoints"/>-</button>
+							</div>
+							<div class="middle-flex">
+								<p class="skill-text" data-bind="text: dCodeText"></p>
+							</div>
+							<div class="right-flex">
+								<button class="skill-text" data-bind="click : addNewSpecialization">+Specialty</button>
+							</div>
+						</div>
+
+						<div class="specializations-wrapper" data-bind="foreach : specializations">
+							<div class="flex-wrapper">
+								<div class="left-flex">
+									<input class="specialization-text" data-bind="value: specializationName" />
+								</div>
+								<div class="middle-flex large-flex">
+									<input class="specialization-input" type="number" data-bind="value: points"/>
+									<button class="specialization-input" data-bind="click: increasePoints"/>+</button>
+									<button class="specialization-input" data-bind="click: decreasePoints"/>-</button>
+								</div>
+								<div class="middle-flex">
+									<p class="specialization-text" data-bind="text: dCodeText"></p>
+								</div>
+								<div class="right-flex"></div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+			<!-- Perks -->
+			<div class="form-wrapper">
+				<h2>Perks</h2>
+				<div data-bind="foreach: perks">
+					<select data-bind="
+						options: $parent.allPerks,
+						optionsText: function(item) {return `${item.name} ${item.cost}`},
+						optionsCaption : 'All Perks',
+						value: selectedPerk">
+					</select>
+					<p data-bind="if: ampable">
+						<input class="amp-input" type="number" data-bind="value: amps"/>
+						<button class="amp-input" data-bind="click: increaseAmps"/>+</button>
+						<button class="amp-input" data-bind="click: decreaseAmps"/>-</button>
+					</p>
+
+					<p data-bind="text: description"></p>
+					<p data-bind="text: limit"></p>
+					<p data-bind="text: powerPoints"></p>
+				</div>
+
+				<button data-bind="click: addPerk">Add Perk</button>
+			</div>
+
+			<!-- Ppwerks -->
+			<div class="form-wrapper">
+				<h2>Powerks</h2>
+				<div data-bind="foreach: powerks">
+					<select data-bind="
+						options: $parent.allPowerks,
+						optionsText: function(item) {return `${item.name} ${item.cost}`},
+						optionsCaption : 'All Powerks',
+						value: selectedPowerk">
+					</select>
+					<p data-bind="if: ampable">
+						<input class="amp-input" type="number" data-bind="value: amps"/>
+						<button class="amp-input" data-bind="click: increaseAmps"/>+</button>
+						<button class="amp-input" data-bind="click: decreaseAmps"/>-</button>
+					</p>
+
+					<p data-bind="text: description"></p>
+					<p data-bind="text: limit"></p>
+					<p data-bind="text: powerPoints"></p>
+				</div>
+
+				<button data-bind="click: addPowerk">Add Powerk</button>
+			</div>
+
+		</div>
+
+		<!-- Calculated Sheet -->
+
+		<div class="preview-side">
+			<div class="form-wrapper">
+				<h2 data-bind="text : characterName">Character</h2>
+				<p>
+					<span data-bind="text: totalPoints"></span>/<span data-bind="text: powerPoints"></span> Power Points
+				</p>
+
+				<h3>Skills</h3>
+
+				<div class="flex-wrapper">
+					<div class="left-flex">
+						<p class="attribute-text">Name</p>
+					</div>
+					<div class="middle-flex">
+						<p class="attribute-text">Total D-Code</p>
+					</div>
+				</div>
+
+				<div class="character-stats-form" data-bind="foreach : baseAttributes">
+					<div class="flex-wrapper">
+						<div class="left-flex">
+							<p class="attribute-text" data-bind="text: attributeName"></p>
+						</div>
+						<div class="middle-flex">
+							<p class="attribute-text" data-bind="text: dCodeText"></p>
+						</div>
+					</div>
+
+					<div class="skills-wrapper" data-bind="foreach : skills">
+						<div class="flex-wrapper">
+							<div class="left-flex">
+								<p class="skill-text" data-bind="text: skillName"></p>
+							</div>
+							<div class="middle-flex">
+								<p class="skill-text" data-bind="text: dCodeText"></p>
+							</div>
+						</div>
+
+						<div class="specializations-wrapper" data-bind="foreach : specializations">
+							<div class="flex-wrapper">
+								<div class="left-flex">
+									<p class="specialization-text" data-bind="text: specializationName" />
+								</div>
+								<div class="middle-flex">
+									<p class="specialization-text" data-bind="text: dCodeText"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<h3>Perks</h3>
+
+				<div class="perks-wrapper" data-bind="foreach : perks">
+					<div class="flex-wrapper">
+						<div class="left-flex">
+							<p class="perk-text" data-bind="text : displayText"></p>
+						</div>
+					</div>
+				</div>
+
+				<h3>Powerks</h3>
+
+				<div class="powerks-wrapper" data-bind="foreach : powerks">
+					<div class="flex-wrapper">
+						<div class="left-flex">
+							<p class="powerk-text" data-bind="text : displayText"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
+		<script type="text/javascript" src="creator.js"></script>
+	</body>
+</html>
