@@ -1,0 +1,1 @@
+This is a character creation tool for Sixcelsior, a WIP tabletop super hero RPG. Currently on Hiatus due to the system itself being under development and changing so quickly I can't keep up. Work will resume once the rules are finalized.
